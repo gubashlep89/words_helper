@@ -6,7 +6,7 @@
   <thead>
     <tr>
       <th>Name</th>
-      <th>Type</th>
+      <th>list_type</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -15,7 +15,7 @@
     <% @word_lists.each do |word_list| %>
       <tr>
         <td><%= word_list.name %></td>
-        <td><%= word_list.type %></td>
+        <td><%= word_list.list_type %></td>
         <td><%= link_to 'Show', word_list %></td>
         <td><%= link_to 'Edit', edit_word_list_path(word_list) %></td>
         <td><%= link_to 'Destroy', word_list, method: :delete, data: { confirm: 'Are you sure?' } %></td>

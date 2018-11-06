@@ -5,7 +5,17 @@
 
   <div class="form-inputs">
     <%= f.input :name %>
-    <%= f.input :type %>
+    <%= f.input :list_type, collection: WordList::STATUSES %>
+  </div>
+
+  <h3>Tasks</h3>
+  <div id='tasks'>
+    <%= f.simple_fields_for :words do |word| %>
+      <%= render 'word_fields', :f => word %>
+    <% end %>
+    <div class='links'>
+      <%= link_to_add_association 'Добавить слово', f, :words %>
+    </div>
   </div>
 
   <div class="form-actions">

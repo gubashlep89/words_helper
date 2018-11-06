@@ -1,0 +1,23 @@
+# == Schema Information
+#
+# Table name: words
+#
+#  id           :bigint(8)        not null, primary key
+#  english_word :string
+#  value        :string
+#  word_list_id :bigint(8)
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#
+
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  english_word: MyString
+  value: MyString
+  word_list: one
+
+two:
+  english_word: MyString
+  value: MyString
+  word_list: two

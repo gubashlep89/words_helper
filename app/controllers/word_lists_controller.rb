@@ -1,5 +1,5 @@
 class WordListsController < ApplicationController
-  before_action :set_word_list, only: [:show, :edit, :update, :destroy]
+  before_action :set_word_list, only: [:show, :edit, :update, :destroy, :random_word]
 
   # GET /word_lists
   # GET /word_lists.json
@@ -61,6 +61,10 @@ class WordListsController < ApplicationController
     end
   end
 
+  def random_word
+   @word = @word_list.words.sample
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_word_list
@@ -69,6 +73,6 @@ class WordListsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def word_list_params
-      params.require(:word_list).permit(:name, :type)
+      params.require(:word_list).permit(:name, :list_type, words_attributes:[:id, :english_word, :value, :_destroy])
     end
 end
