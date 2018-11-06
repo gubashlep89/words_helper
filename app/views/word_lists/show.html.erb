@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @word_list.name %>
+</p>
+
+<p>
+  <strong>Type:</strong>
+  <%= @word_list.type %>
+</p>
+
+<%= link_to 'Edit', edit_word_list_path(@word_list) %> |
+<%= link_to 'Back', word_lists_path %>
