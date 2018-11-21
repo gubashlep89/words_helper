@@ -10,8 +10,46 @@
   <%= @word_list.list_type %>
 </p>
 
+<button type="button" class="btn btn-primary" id="random_button">Слово</button>
+
+<div class="input-group mb-3">
+  <div class="input-group-prepend">
+    <span class="input-group-text" id="basic-addon1">@</span>
+  </div>
+  <input type="text" id="input1" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+</div>
+
+<br>
 <%= link_to 'слова', random_word_word_list_path(@word_list) %>
 <br>
 
 <%= link_to 'Edit', edit_word_list_path(@word_list) %> |
 <%= link_to 'Back', word_lists_path %>
+
+
+<script type="text/javascript" charset="utf-8">
+
+    $( "#random_button" ).click(function() {
+        $.ajax({
+            url: '<%= random_word_word_list_url(@word_list) %>.json',
+            type: 'GET',
+            success: function (element) {
+                var english_word = element['english_word'],
+                    value = element['value'],
+                    span_qwe = $("#basic-addon1"),
+                    input = $('#input1');
+                console.log(input);
+                if (input) {
+                    input.val(value);
+                    span_qwe.text(english_word);
+                }
+            },
+            error: function (ex) {
+                console.log('ERROR');
+                console.log(ex)
+            }
+        });
+    });
+
+
+</script>

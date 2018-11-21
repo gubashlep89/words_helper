@@ -1,0 +1,64 @@
+
+<div class="card text-center">
+  <div class="card-header">
+    Случайное слово из вашего списка
+  </div>
+  <div class="card-body">
+    <h5 class="card-title"></h5>
+    <p>
+<!--      <span class="card-text" id="basic-addon1">English word</span>-->
+    </p>
+    <p>
+      <div style="overflow: hidden">
+<!--        <span class="card-text" id="basic-value">Перевод</span>-->
+      </div>
+
+    </p>
+
+    <a href="#" class="btn btn-primary" id="random_button">Случайное слово из списка</a>
+  </div>
+</div>
+
+
+<div class="panel-group">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" href="#collapse1" id="basic-addon1">Collapsible panel</a>
+      </h4>
+    </div>
+    <div id="collapse1" class="panel-collapse collapse">
+      <div class="panel-body">
+        <span class="card-text" id="basic-value">Перевод</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script type="text/javascript" charset="utf-8">
+
+    $( "#random_button" ).click(function() {
+        $.ajax({
+            url: '<%= random_word_word_list_url(@word_list) %>.json',
+            type: 'GET',
+            success: function (element) {
+                var english_word = element['english_word'],
+                    value = element['value'],
+                    span_en = $("#basic-addon1"),
+                    span_ru = $('#basic-value');
+                if (span_ru) {
+                    span_ru.text(value);
+                    span_en.text(english_word);
+                }
+            },
+            error: function (ex) {
+                console.log('ERROR');
+                console.log(ex)
+            }
+        });
+    });
+
+
+
+</script>

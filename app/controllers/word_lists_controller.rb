@@ -1,5 +1,5 @@
 class WordListsController < ApplicationController
-  before_action :set_word_list, only: [:show, :edit, :update, :destroy, :random_word]
+  before_action :set_word_list, only: [:show, :edit, :update, :destroy, :random_word, :training]
 
   # GET /word_lists
   # GET /word_lists.json
@@ -10,6 +10,25 @@ class WordListsController < ApplicationController
   # GET /word_lists/1
   # GET /word_lists/1.json
   def show
+    @words = @word_list.words
+    respond_to do |format|
+      format.html {}
+      format.json {
+        @words_collection = @words.map{|w| {english_word: w.english_word, value: w.value}}
+        render json: {words: @words_collection}
+      }
+    end
+  end
+
+  def training
+    @words = @word_list.words
+    respond_to do |format|
+      format.html {}
+      format.json {
+        @words_collection = @words.map{|w| {english_word: w.english_word, value: w.value}}
+        render json: {words: @words_collection}
+      }
+    end
   end
 
   # GET /word_lists/new
@@ -63,6 +82,13 @@ class WordListsController < ApplicationController
 
   def random_word
    @word = @word_list.words.sample
+
+    respond_to do |format|
+      format.html {}
+      format.json  {
+        render json: {english_word: @word.english_word, value: @word.value}
+      }
+    end
   end
 
   private
