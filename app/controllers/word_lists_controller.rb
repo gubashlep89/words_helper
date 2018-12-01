@@ -1,5 +1,6 @@
 class WordListsController < ApplicationController
-  before_action :set_word_list, only: [:show, :edit, :update, :destroy, :random_word, :training]
+  before_action :set_word_list, only: [:show, :edit, :update, :destroy,
+                                       :random_word, :training, :testing, :test_result]
 
   # GET /word_lists
   # GET /word_lists.json
@@ -29,6 +30,22 @@ class WordListsController < ApplicationController
         render json: {words: @words_collection}
       }
     end
+  end
+
+  def testing
+    @words = @word_list.words
+  end
+
+  def test_result
+    words = @word_list.words
+    correct_answers = 0
+    words.each do |word|
+      answer = params["word_#{word.id}"]
+      if word.check_answer(answer)
+        correct_answers += 1
+      end
+    end
+    @correct = correct_answers
   end
 
   # GET /word_lists/new

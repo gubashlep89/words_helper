@@ -16,4 +16,12 @@
 
 class Word < ApplicationRecord
   belongs_to :word_list
+
+  def check_answer(answer)
+    if value.downcase == answer.downcase
+      true
+    else
+      false
+    end
+  end
 end

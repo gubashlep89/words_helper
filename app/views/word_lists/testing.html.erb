@@ -1,0 +1,10 @@
+<%= form_tag test_result_word_list_path(@word_list) do %>
+  <% @words.each do |word| %>
+    <%= label_tag "#{word.english_word}" %>
+    <input id="word_<%= word.id %>" name="word_<%= word.id %>" type="text">
+  <% end %>
+  <br>
+  <br>
+
+  <button type="submit" class="btn btn-sm btn-info" name="btn_type">Документ Word</button>
+<% end %>

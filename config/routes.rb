@@ -4,6 +4,8 @@ Rails.application.routes.draw do
     member do
       get 'random_word'
       get 'training'
+      get 'testing'
+      post 'test_result'
     end
   end
   root to: 'visitors#index'

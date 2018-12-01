@@ -31,6 +31,7 @@ gem 'pg'
 gem 'simple_form'
 group :development do
   gem 'better_errors'
+  gem 'binding_of_caller'
   gem 'rails_layout'
 end
 group :development, :test do
