@@ -1,0 +1,17 @@
+<div class='nested-fields'>
+  <%= f.input :question_text %>
+  <%= f.input :correct_answer, as: :select,
+                       collection: 1..f.object.question_answers.count, label: 'Правильный ответ' %>
+
+  <h3>Ответы</h3>
+  <div id='questions'>
+    <%= f.simple_fields_for :question_answers do |question_answer| %>
+      <%= render 'question_answer_fields', :f => question_answer %>
+    <% end %>
+    <div class='links'>
+      <%= link_to_add_association 'Добавить ответ', f, :question_answers %>
+    </div>
+  </div>
+
+  <%= link_to_remove_association "удалить вопрос", f %>
+</div>

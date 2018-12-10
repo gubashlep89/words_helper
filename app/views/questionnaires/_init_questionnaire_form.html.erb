@@ -1,0 +1,28 @@
+<%= simple_form_for(@questionnaire) do |f| %>
+  <%= f.error_notification %>
+  <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+
+  <div class="form-inputs">
+    <%= f.input :title %>
+    <%= f.input :description %>
+
+    <h3>найтсроки</h3>
+
+    <%= f.simple_fields_for :options do |option_f| %>
+      <div class="row">
+        <div class="col-md-6">
+          <%= option_f.input :question_count, as: :select,
+                             collection: 5..35, selected: 5, label: 'количество вопросов в тесте' %>
+        </div>
+        <div class="col-md-6">
+          <%= option_f.input :answer_count, as: :select,
+                             collection: 2..5, selected: 3, label: 'количество ответов в вопросе' %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

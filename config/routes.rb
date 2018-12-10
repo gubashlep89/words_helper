@@ -1,4 +1,11 @@
 Rails.application.routes.draw do
+  resources :questionnaires do
+    member do
+      get 'exam'
+      post 'exam_result'
+      post 'init_questionnaire'
+    end
+  end
   resources :words
   resources :word_lists do
     member do

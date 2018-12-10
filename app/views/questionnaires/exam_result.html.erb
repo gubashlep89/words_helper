@@ -1,0 +1,26 @@
+<h1>результаты</h1>
+
+<%= @total %>
+
+<% @questionnaire.questions.each do |question| %>
+  <ul>
+    <h3 class="text-<%= @total["question#{question.id}"]['correct'] ? 'success' : 'danger' %>">
+      <%= question.question_text %> <%= question.correct_answer %>
+    </h3>
+    <% question.question_answers.each_with_index do |answer, answer_index| %>
+      <%
+        if @total["question#{question.id}"]['incorrect_answer'] == (answer_index+1).to_s
+          text_class = 'text-danger'
+        elsif question.correct_answer == answer_index+1
+          text_class = 'text-success'
+        else
+          text_class = ""
+        end
+        #raise if question.id == 2 and answer_index == 1
+      %>
+      <li class="<%= text_class %>"><%= answer.answer_text %></li>
+      <% text_class = "" %>
+    <% end %>
+  </ul>
+
+<% end %>
