@@ -21,6 +21,16 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   #   super
   # end
 
+  def facebook
+    auth = request.env['omniauth.auth']
+    @user = User.from_facebook(auth)
+    if @user.persisted?
+      sign_in_and_redirect @user
+    else
+      redirect_to new_user_session, alert: 'Ошибка авторизации'
+    end
+  end
+
   # protected
 
   # The path used when OmniAuth fails

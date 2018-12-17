@@ -6,6 +6,9 @@
 #  name                   :string
 #  role                   :integer          default(1)
 #  vk_link                :string
+#  fb_link                :string
+#  provider               :string
+#  uid                    :string
 #  phone                  :string
 #  email                  :string           default(""), not null
 #  encrypted_password     :string           default(""), not null
@@ -17,8 +20,18 @@
 #
 
 class User < ApplicationRecord
-  # Include default devise modules. Others available are:
+  # Include default user modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable
+         :recoverable, :rememberable, :validatable, :omniauthable, :omniauth_providers => [:facebook]
+
+  has_many :services, :dependent => :destroy
+
+  def self.from_facebook(auth)
+    where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
+      user.email = auth.info.email
+      user.name = auth.info.name
+      user.password = Devise.friendly_token[0, 20]
+    end
+  end
 end

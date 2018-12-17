@@ -44,6 +44,9 @@ ActiveRecord::Schema.define(version: 2018_12_10_183028) do
     t.string "name"
     t.integer "role", default: 1
     t.string "vk_link"
+    t.string "fb_link"
+    t.string "provider"
+    t.string "uid"
     t.string "phone"
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false

@@ -6,6 +6,9 @@
 #  name                   :string
 #  role                   :integer          default(1)
 #  vk_link                :string
+#  fb_link                :string
+#  provider               :string
+#  uid                    :string
 #  phone                  :string
 #  email                  :string           default(""), not null
 #  encrypted_password     :string           default(""), not null
