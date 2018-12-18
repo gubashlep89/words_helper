@@ -23,7 +23,7 @@ class User < ApplicationRecord
   # Include default user modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable, :omniauthable, :omniauth_providers => [:facebook]
+         :recoverable, :rememberable, :validatable, :omniauthable, :omniauth_providers => [:facebook, :vkontakte]
 
   has_many :services, :dependent => :destroy
 
@@ -31,6 +31,15 @@ class User < ApplicationRecord
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
       user.email = auth.info.email
       user.name = auth.info.name
+      user.password = Devise.friendly_token[0, 20]
+    end
+  end
+
+  def self.from_vkontakte(auth)
+    where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
+      user.email = auth.info.email || "#{auth.uid}@random_mail.com"
+      user.name = auth.info.name
+      user.vk_link = auth.info.urls.Vkontakte
       user.password = Devise.friendly_token[0, 20]
     end
   end

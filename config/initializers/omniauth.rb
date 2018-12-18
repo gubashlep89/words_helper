@@ -1,3 +1,9 @@
 Rails.application.config.middleware.use OmniAuth::Builder do
-  provider :facebook, "297182674247120", "5376be3a679730732992182a404b32ec"
+  provider :facebook, ENV['FACEBOOK_KEY'], ENV['FACEBOOK_SECRET']
+  provider :vkontakte, ENV['VK_KEY'], ENV['VK_SECRET'],
+           {
+               :scope => 'notify,email,photos',
+               :display => 'popup',
+               :lang => 'ru'
+           }
 end

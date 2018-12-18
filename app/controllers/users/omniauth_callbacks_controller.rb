@@ -27,7 +27,17 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     if @user.persisted?
       sign_in_and_redirect @user
     else
-      redirect_to new_user_session, alert: 'Ошибка авторизации'
+      redirect_to new_user_session_path, alert: "Ошибка авторизации: #{@user.errors.messages}"
+    end
+  end
+
+  def vkontakte
+    auth = request.env['omniauth.auth']
+    @user = User.from_vkontakte(auth)
+    if @user.persisted?
+      sign_in_and_redirect @user
+    else
+      redirect_to new_user_session_path, alert: "Ошибка авторизации: #{@user.errors.messages}"
     end
   end
 
