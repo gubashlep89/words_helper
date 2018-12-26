@@ -1,20 +1,24 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><%= content_for?(:title) ? yield(:title) : "Words Helper" %></title>
-    <meta name="description" content="<%= content_for?(:description) ? yield(:description) : "Words Helper" %>">
-    <%= stylesheet_link_tag 'application', media: 'all' %>
-    <%= javascript_include_tag 'application' %>
-    <%= csrf_meta_tags %>
-  </head>
-  <body>
-    <header>
-      <%= render 'layouts/navigation' %>
-    </header>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= content_for?(:title) ? yield(:title) : "Words Helper" %></title>
+  <meta name="description" content="<%= content_for?(:description) ? yield(:description) : "Words Helper" %>">
+  <%= stylesheet_link_tag 'application', media: 'all' %>
+  <%= javascript_include_tag 'application' %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+<header>
+  <%= render 'layouts/navigation' %>
+</header>
+<div id="page-wrapper">
+  <div class="container-fluid">
     <main role="main">
-       <%= render 'layouts/messages' %>
-       <%= yield %>
+      <%= render 'layouts/messages' %>
+      <%= yield %>
     </main>
-  </body>
+  </div>
+</div>
+</body>
 </html>

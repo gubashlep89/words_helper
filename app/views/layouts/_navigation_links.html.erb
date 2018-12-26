@@ -1,4 +1,9 @@
-<%# add navigation links to this file %>
-<li><%= link_to 'About', page_path('about') %></li>
-<li><%= link_to 'Списки', word_lists_path %></li>
-<li><%= link_to 'Тесты', questionnaires_path %></li>
+<li class="nav-item">
+  <a class="nav-item nav-link text-dark" href="<%= page_path('about') %>">About</a>
+</li>
+<li class="nav-item">
+  <a class="nav-item nav-link text-dark" href="<%= word_lists_path %>">Списки</a>
+</li>
+<li class="nav-item">
+  <a class="nav-item nav-link text-dark" href="<%= questionnaires_path %>">Тесты</a>
+</li>

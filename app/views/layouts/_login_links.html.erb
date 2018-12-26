@@ -1,12 +1,15 @@
-<% if current_user %>
-  <li><a href="<%= edit_user_registration_path %>"><span class="glyphicon glyphicon-cog"></span>User settings</a></li>
-  <li>
-    <a href="<%=  destroy_user_session_url %>" data-method="delete">
-      <span class="glyphicon glyphicon-log-out"></span>
-      Logout
-    </a>
-  </li>
-<% else %>
-  <li><a href="<%= new_user_registration_path %>"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-  <li><a href="<%= new_user_session_path %>"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-<% end %>
+<li class="nav-item dropdown">
+  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    User</a>
+  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+    <% if current_user %>
+      <a class="dropdown-item" href="<%= edit_user_registration_path %>">User settings</a>
+      <a class="dropdown-item" href="<%= destroy_user_session_url %>" data-method="delete">
+        Logout
+      </a>
+    <% else %>
+      <a class="dropdown-item" href="<%= new_user_registration_path %>">Sign Up</a>
+      <a class="dropdown-item" href="<%= new_user_session_path %>">Login</a>
+    <% end %>
+  </div>
+</li>
