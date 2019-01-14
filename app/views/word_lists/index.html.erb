@@ -1,26 +1,45 @@
-<p id="notice"><%= notice %></p>
-
-<h1>Word Lists</h1>
+<h1 class="text-center">Списки слов для запоминиания</h1>
 
 <table class="table table-striped">
   <thead>
     <tr>
-      <th>Name</th>
-      <th>list_type</th>
-      <th colspan="6"></th>
+      <th><h3>Наименование</h3></th>
+      <th><h3>Уровень сложности</h3></th>
+      <th colspan="5" class="text-center"><h3>Действия</h3></th>
     </tr>
   </thead>
 
   <tbody>
     <% @word_lists.each do |word_list| %>
       <tr>
-        <td><%= word_list.name %></td>
-        <td><%= word_list.list_type %></td>
-        <td><%= link_to 'Show', word_list %></td>
-        <td><%= link_to 'Testing', testing_word_list_path(word_list) %></td>
-        <td><%= link_to 'Training', training_word_list_path(word_list)%></td>
-        <td><%= link_to 'Edit', edit_word_list_path(word_list) %></td>
-        <td><%= link_to 'Destroy', word_list, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><h4><%= word_list.name %></h4></td>
+        <td><h4><%= t "activerecord.attributes.word_list.list_types.#{word_list.list_type}" %></h4></td>
+        <td>
+          <div class="dropdown show">
+            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Упражнения
+            </a>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+              <a class="dropdown-item" href="<%= testing_word_list_path(word_list) %>">Проверка</a>
+              <a class="dropdown-item" href="<%= training_word_list_path(word_list) %>">Трерировка</a>
+            </div>
+          </div>
+        </td>
+        <td>
+          <%= link_to word_list do %>
+            <i class="fa fa-eye fa-2x"></i>
+          <% end %>
+        </td>
+        <td>
+          <%= link_to edit_word_list_path(word_list) do %>
+            <i class="fa fa-pencil fa-2x"></i>
+          <% end %>
+        </td>
+        <td>
+          <%= link_to word_list, method: :delete, data: {confirm: 'Вы уверены?'} do %>
+            <i class="fa fa-trash fa-2x"></i>
+          <% end %>
+        </td>
       </tr>
     <% end %>
   </tbody>
@@ -28,4 +47,5 @@
 
 <br>
 
-<%= link_to 'New Word List', new_word_list_path %>
+<%= link_to 'Создать новый список', new_word_list_path, class: 'btn btn-success' %>
+

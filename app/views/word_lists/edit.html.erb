@@ -1,6 +1,10 @@
-<h1>Editing Word List</h1>
+<h1>Редактировать список слов</h1>
+
+<% content_for :form_actions_after do %>
+  <%= link_to 'Посмотреть', @word_list, class: 'btn btn-outline-secondary' %>
+  <%= link_to 'Назад', word_lists_path, class: 'btn btn-outline-secondary' %>
+<% end %>
 
 <%= render 'form', word_list: @word_list %>
-
-<%= link_to 'Show', @word_list %> |
-<%= link_to 'Back', word_lists_path %>
+<br>
+<br>

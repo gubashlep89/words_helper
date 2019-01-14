@@ -23,6 +23,7 @@ class WordListsController < ApplicationController
 
   def training
     @words = @word_list.words
+    @first_word = @words.sample
     respond_to do |format|
       format.html {}
       format.json {
@@ -39,13 +40,21 @@ class WordListsController < ApplicationController
   def test_result
     words = @word_list.words
     correct_answers = 0
+    answers_array = []
     words.each do |word|
       answer = params["word_#{word.id}"]
+      answer_array = []
+      answer_array << word.english_word
+      answer_array << params["word_#{word.id}"]
+      answer_array << word.check_answer(answer)
+      answers_array << answer_array
       if word.check_answer(answer)
         correct_answers += 1
       end
     end
     @correct = correct_answers
+    @words_count = words.count
+    @answer_array = answers_array
   end
 
   # GET /word_lists/new
@@ -64,7 +73,7 @@ class WordListsController < ApplicationController
 
     respond_to do |format|
       if @word_list.save
-        format.html { redirect_to @word_list, notice: 'Word list was successfully created.' }
+        format.html { redirect_to @word_list, notice: 'Список для запоминания успешно создан.' }
         format.json { render :show, status: :created, location: @word_list }
       else
         format.html { render :new }
@@ -78,7 +87,7 @@ class WordListsController < ApplicationController
   def update
     respond_to do |format|
       if @word_list.update(word_list_params)
-        format.html { redirect_to @word_list, notice: 'Word list was successfully updated.' }
+        format.html { redirect_to @word_list, notice: 'Список для запоминания успешно обновлен.' }
         format.json { render :show, status: :ok, location: @word_list }
       else
         format.html { render :edit }
@@ -92,7 +101,7 @@ class WordListsController < ApplicationController
   def destroy
     @word_list.destroy
     respond_to do |format|
-      format.html { redirect_to word_lists_url, notice: 'Word list was successfully destroyed.' }
+      format.html { redirect_to word_lists_url, notice: 'Список для запоминания успешно удален.' }
       format.json { head :no_content }
     end
   end

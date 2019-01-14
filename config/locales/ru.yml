@@ -1,0 +1,18 @@
+ru:
+  activerecord:
+    attributes:
+      word_list:
+        name: 'Наименование'
+        list_type: 'Уровень сложности'
+        list_types:
+          low: 'Для начинающих'
+          middle: 'Средний'
+          hard: 'Продвинутый'
+      word:
+        english_word: 'Английское слово'
+        value: 'Перевод'
+
+  models:
+    words:
+      one: "Слово для запоминиания"
+      other: "Слова для запоминания"

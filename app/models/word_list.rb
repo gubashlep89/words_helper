@@ -11,15 +11,19 @@
 
 class WordList < ApplicationRecord
 
-  STATUSES = [:verb, :adjective, :noun]
+  STATUSES = [:low, :middle, :hard]
+
   enum list_type: STATUSES
 
-  has_many :words
+  has_many :words, dependent: :destroy
   accepts_nested_attributes_for :words, reject_if: :all_blank, allow_destroy: true
 
+  validate :words_exists
 
-  # def random_word
-  #   words.sample
-  # end
+  private
+
+  def words_exists
+    errors.add(:base, 'Необходимо добавить хотя бы одно слово в ваш список') unless self.words.any?
+  end
 
 end

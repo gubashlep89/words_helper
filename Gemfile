@@ -34,6 +34,7 @@ gem 'high_voltage'
 gem 'jquery-rails'
 gem 'pg'
 gem 'simple_form'
+gem 'font-awesome-rails'
 group :development do
   gem 'better_errors'
   gem 'binding_of_caller'

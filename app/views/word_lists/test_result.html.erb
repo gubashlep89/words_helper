@@ -1,1 +1,28 @@
-<h1><%= @correct %></h1>
+<h1 align="center">Резульаты</h1>
+<div class="container">
+  <h4>Правильных ответов: <%= @correct %> из <%= @words_count %></h4>
+
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th class="text-center">Слово</th>
+      <th class="text-center">Ответ</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @answer_array.each do |answer| %>
+      <tr class="<%= answer[2] ? 'text-success' : 'text-danger' %>">
+        <td class="text-center"><%= answer[0] %></td>
+        <td class="text-center"><%= answer[1] %></td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>
+<div class="btn-group" role="group" aria-label="Basic example">
+  <%= link_to 'Пройти еще раз', testing_word_list_path(@word_list), class: 'btn btn-outline-primary' %>
+  <%= link_to 'Тренировка', training_word_list_path(@word_list), class: 'btn btn-outline-info' %>
+  <%= link_to 'Назад', word_lists_path, class: 'btn btn-outline-secondary' %>
+</div>
+<br>
+<br>

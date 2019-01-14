@@ -1,35 +1,54 @@
-<p id="notice"><%= notice %></p>
-
 <p>
-  <strong>Name:</strong>
+  <strong>Наименование:</strong>
   <%= @word_list.name %>
 </p>
 
 <p>
-  <strong>Type:</strong>
-  <%= @word_list.list_type %>
+  <strong>Уровень сложности:</strong>
+  <%= t "activerecord.attributes.word_list.list_types.#{@word_list.list_type}" %>
 </p>
-
-<button type="button" class="btn btn-primary" id="random_button">Слово</button>
-
-<div class="input-group mb-3">
-  <div class="input-group-prepend">
-    <span class="input-group-text" id="basic-addon1">@</span>
-  </div>
-  <input type="text" id="input1" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+<div class="container">
+  <table class="table table-sm table-hover table-bordered">
+    <thead>
+    <tr>
+      <th class="text-center">Слово</th>
+      <th class="text-center">Перевод</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @word_list.words.each do |word| %>
+      <tr>
+        <td class="text-center"><%= word.english_word %></td>
+        <td class="text-center"><%= word.value %></td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
 </div>
 
-<br>
-<%= link_to 'слова', random_word_word_list_path(@word_list) %>
-<br>
 
-<%= link_to 'Edit', edit_word_list_path(@word_list) %> |
-<%= link_to 'Back', word_lists_path %>
+<!--<button type="button" class="btn btn-primary" id="random_button">Слово</button>-->
+
+<!--<div class="input-group mb-3">-->
+<!--  <div class="input-group-prepend">-->
+<!--    <span class="input-group-text" id="basic-addon1">@</span>-->
+<!--  </div>-->
+<!--  <input type="text" id="input1" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">-->
+<!--</div>-->
+
+<!--<br>-->
+<%#= link_to 'слова', random_word_word_list_path(@word_list) %>
+<!--<br>-->
+
+<div class="btn-group" role="group" aria-label="Basic example">
+  <%= link_to 'Редактировать список', edit_word_list_path(@word_list), class: 'btn btn-outline-primary' %>
+  <%= link_to 'Назад', word_lists_path, class: 'btn btn-outline-secondary' %>
+</div>
 
 
 <script type="text/javascript" charset="utf-8">
 
-    $( "#random_button" ).click(function() {
+    $("#random_button").click(function () {
         $.ajax({
             url: '<%= random_word_word_list_url(@word_list) %>.json',
             type: 'GET',

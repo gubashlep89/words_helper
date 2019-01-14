@@ -1,5 +1,15 @@
 <div class='nested-fields'>
-    <%= f.input :english_word %>
-    <%= f.input :value %>
-    <%= link_to_remove_association "удалить слово", f %>
+  <table class="table sm-table">
+    <tbody>
+    <tr>
+      <td><%= f.input :english_word, label: false %></td>
+      <td><%= f.input :value, label: false %></td>
+      <td>
+        <%= link_to_remove_association f do %>
+          <i class="fa fa-trash fa-2x"></i>
+        <% end %>
+      </td>
+    </tr>
+    </tbody>
+  </table>
 </div>

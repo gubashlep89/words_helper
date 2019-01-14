@@ -1,24 +1,39 @@
-
 <%= simple_form_for(@word_list) do |f| %>
   <%= f.error_notification %>
   <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
 
   <div class="form-inputs">
     <%= f.input :name %>
-    <%= f.input :list_type, collection: WordList::STATUSES %>
+    <%= f.input :list_type, collection: WordList.list_types.map {|source, key|
+      [t('activerecord.attributes.word_list.list_types.' + source), source]} %>
   </div>
-
-  <h3>Tasks</h3>
+  <br>
+    <div class="row">
+      <div class="col">
+        <h3>Слово</h3>
+      </div>
+      <div class="col">
+        <h3 class="text-center">Перевод</h3>
+      </div>
+      <div class="col">
+        <h3 class="text-right">Удалить</h3>
+      </div>
+    </div>
   <div id='tasks'>
     <%= f.simple_fields_for :words do |word| %>
       <%= render 'word_fields', :f => word %>
     <% end %>
-    <div class='links'>
-      <%= link_to_add_association 'Добавить слово', f, :words %>
+    <div class='links' align="center">
+      <%= link_to_add_association 'Добавить слово', f, :words, class: 'btn btn-success' %>
     </div>
   </div>
 
-  <div class="form-actions">
-    <%= f.button :submit %>
+  <br>
+  <div class="form-actions" align="center">
+    <div class="btn-group" role="group" aria-label="Basic example">
+      <%= yield(:form_actions_before) %>
+      <%= f.button :submit, 'Сохранить список', class: 'btn btn-outline-success' %>
+      <%= yield(:form_actions_after) %>
+    </div>
   </div>
 <% end %>
