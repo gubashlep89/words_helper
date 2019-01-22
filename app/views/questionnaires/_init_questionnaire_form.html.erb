@@ -6,7 +6,7 @@
     <%= f.input :title %>
     <%= f.input :description %>
 
-    <h3>найтсроки</h3>
+    <h3>Укажете параметры теста</h3>
 
     <%= f.simple_fields_for :options do |option_f| %>
       <div class="row">
@@ -23,6 +23,10 @@
   </div>
 
   <div class="form-actions">
-    <%= f.button :submit %>
+    <div class="btn-group" role="group" aria-label="Basic example">
+      <%= yield(:form_actions_before) %>
+      <%= f.button :submit, 'Сохранить список', class: 'btn btn-outline-success' %>
+      <%= yield(:form_actions_after) %>
+    </div>
   </div>
 <% end %>

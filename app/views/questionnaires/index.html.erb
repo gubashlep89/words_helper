@@ -1,13 +1,11 @@
-<p id="notice"><%= notice %></p>
-
-<h1>Questionnaires</h1>
+<h1 class="text-center">Тесты</h1>
 
 <table class="table table-striped">
   <thead>
     <tr>
-      <th>Title</th>
-      <th>Description</th>
-      <th colspan="3"></th>
+      <th>Наименование</th>
+      <th>Описание</th>
+      <th colspan="4" class="text-center">Действия</th>
     </tr>
   </thead>
 
@@ -16,10 +14,22 @@
       <tr>
         <td><%= questionnaire.title %></td>
         <td><%= questionnaire.description %></td>
-        <td><%= link_to 'Test', exam_questionnaire_path(questionnaire) %></td>
-        <td><%= link_to 'Show', questionnaire %></td>
-        <td><%= link_to 'Edit', edit_questionnaire_path(questionnaire) %></td>
-        <td><%= link_to 'Destroy', questionnaire, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Пройти тест', exam_questionnaire_path(questionnaire), class: 'btn btn-sm btn-outline-secondary' %></td>
+        <td>
+          <%= link_to questionnaire do %>
+            <i class="fa fa-eye"></i>
+          <% end %>
+        </td>
+        <td>
+          <%= link_to edit_questionnaire_path(questionnaire) do %>
+            <i class="fa fa-pencil"></i>
+          <% end %>
+        </td>
+        <td>
+          <%= link_to questionnaire, method: :delete, data: {confirm: 'Вы уверены?'} do %>
+            <i class="fa fa-trash"></i>
+          <% end %>
+        </td>
       </tr>
     <% end %>
   </tbody>
@@ -27,4 +37,4 @@
 
 <br>
 
-<%= link_to 'New Questionnaire', new_questionnaire_path %>
+<%= link_to 'Создать новый тест', new_questionnaire_path, class: 'btn btn-outline-primary' %>

@@ -35,7 +35,7 @@ class QuestionnairesController < ApplicationController
 
     respond_to do |format|
       if @questionnaire.save
-        format.html { redirect_to @questionnaire, notice: 'Questionnaire was successfully created.' }
+        format.html { redirect_to @questionnaire, notice: 'Тест успешно создан.' }
         format.json { render :show, status: :created, location: @questionnaire }
       else
         format.html { render :new }
@@ -49,7 +49,7 @@ class QuestionnairesController < ApplicationController
   def update
     respond_to do |format|
       if @questionnaire.update(questionnaire_params)
-        format.html { redirect_to @questionnaire, notice: 'Questionnaire was successfully updated.' }
+        format.html { redirect_to @questionnaire, notice: 'Тест успешно обновлен.' }
         format.json { render :show, status: :ok, location: @questionnaire }
       else
         format.html { render :edit }
@@ -63,7 +63,7 @@ class QuestionnairesController < ApplicationController
   def destroy
     @questionnaire.destroy
     respond_to do |format|
-      format.html { redirect_to questionnaires_url, notice: 'Questionnaire was successfully destroyed.' }
+      format.html { redirect_to questionnaires_url, notice: 'Тест успешно удален.' }
       format.json { head :no_content }
     end
   end
@@ -74,15 +74,21 @@ class QuestionnairesController < ApplicationController
 
   def exam_result
     total = {}
+    questions_count = 0
+    correct_answer_count = 0
     @questionnaire.questions.each_with_index  do |question, question_index|
       if question.correct_answer.to_s == params["question_#{question_index}"]
         result = {'correct' => true}
+        correct_answer_count += 1
       else
         result = {'correct' => false, 'incorrect_answer' => params["question_#{question_index}"]}
       end
       questions = {"question#{question.id}" => result}
       total.merge!(questions)
+      questions_count += 1
     end
+    @correct_answer_count = correct_answer_count
+    @questions_count = questions_count
     @total = total
   end
 

@@ -1,14 +1,31 @@
-<p id="notice"><%= notice %></p>
+<h1 class="text-center"><%= @questionnaire.title %></h1>
 
 <p>
-  <strong>Title:</strong>
-  <%= @questionnaire.title %>
+  <h3>Описание: <%= @questionnaire.description %></h3>
 </p>
 
-<p>
-  <strong>Description:</strong>
-  <%= @questionnaire.description %>
-</p>
+<h3>Вопросы:</h3>
+<ul>
+  <% @questionnaire.questions.each_with_index do |question, question_index| %>
+    <li>
 
-<%= link_to 'Edit', edit_questionnaire_path(@questionnaire) %> |
-<%= link_to 'Back', questionnaires_path %>
+      <a data-toggle="collapse" href="#question<%= question_index %>" role="button" aria-expanded="false"
+         aria-controls="question<%= question_index %>">
+        <strong><%= question_index+1 %></strong>. <%= question.question_text %>
+      </a>
+      <div class="collapse multi-collapse" id="question<%= question_index %>">
+        <div class="card card-body">
+          <% question.question_answers.each_with_index do |answer, answer_index| %>
+            <%= answer.answer_text  if answer_index+1 == question.correct_answer %>
+          <% end %>
+        </div>
+      </div>
+
+    </li>
+  <% end %>
+</ul>
+
+<div class="btn-group" role="group" aria-label="Basic example">
+  <%= link_to 'Редактировать список', edit_questionnaire_path(@questionnaire), class: 'btn btn-outline-primary' %>
+  <%= link_to 'Назад', questionnaires_path, class: 'btn btn-outline-secondary' %>
+</div>

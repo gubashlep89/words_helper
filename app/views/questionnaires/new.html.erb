@@ -1,5 +1,10 @@
-<h1>New Questionnaire</h1>
+<h1>Создание теста</h1>
+
+<% content_for :form_actions_after do %>
+  <%= link_to 'Назад', questionnaires_path, class: 'btn btn-outline-secondary' %>
+<% end %>
 
 <%= render 'init_questionnaire_form', questionnaire: @questionnaire %>
 
-<%= link_to 'Back', questionnaires_path %>
+<br>
+<br>

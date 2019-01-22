@@ -11,6 +11,9 @@ ru:
       word:
         english_word: 'Английское слово'
         value: 'Перевод'
+      questionnaire:
+        title: 'Наименование'
+        description: 'Описание'
 
   models:
     words:

@@ -1,6 +1,11 @@
-<h1>Editing Questionnaire</h1>
+<h1>Редактирование теста</h1>
+
+<% content_for :form_actions_after do %>
+  <%= link_to 'Посмотреть', @questionnaire, class: 'btn btn-outline-secondary' %>
+  <%= link_to 'Назад', questionnaires_path, class: 'btn btn-outline-secondary' %>
+<% end %>
 
 <%= render 'form', questionnaire: @questionnaire %>
 
-<%= link_to 'Show', @questionnaire %> |
-<%= link_to 'Back', questionnaires_path %>
+<br>
+<br>

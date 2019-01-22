@@ -8,7 +8,7 @@
   <%= t "activerecord.attributes.word_list.list_types.#{@word_list.list_type}" %>
 </p>
 <div class="container">
-  <table class="table table-sm table-hover table-bordered">
+  <table class="table table-hover">
     <thead>
     <tr>
       <th class="text-center">Слово</th>
@@ -25,20 +25,6 @@
     </tbody>
   </table>
 </div>
-
-
-<!--<button type="button" class="btn btn-primary" id="random_button">Слово</button>-->
-
-<!--<div class="input-group mb-3">-->
-<!--  <div class="input-group-prepend">-->
-<!--    <span class="input-group-text" id="basic-addon1">@</span>-->
-<!--  </div>-->
-<!--  <input type="text" id="input1" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">-->
-<!--</div>-->
-
-<!--<br>-->
-<%#= link_to 'слова', random_word_word_list_path(@word_list) %>
-<!--<br>-->
 
 <div class="btn-group" role="group" aria-label="Basic example">
   <%= link_to 'Редактировать список', edit_word_list_path(@word_list), class: 'btn btn-outline-primary' %>

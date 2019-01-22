@@ -1,23 +1,27 @@
-<%= form_tag exam_result_questionnaire_path(@questionnaire) do %>
-  <br>
-  <br>
-  <% @questionnaire.questions.each_with_index do |question, question_index| %>
-    <ul class="list-group">
-      <li class="list-group-item"><%= question.question_text %></li>
-      <ul>
-        <% question.question_answers.each_with_index do |question_answer, answer_index| %>
-          <li>
-            <div class="radio">
-              <label><input id="id_<%= question_answer.id %>" name="question_<%= question_index %>"
-                            type="radio" value="<%= answer_index+1 %>"/><%= question_answer.answer_text %></label>
-            </div>
-          </li>
-        <% end %>
+<div class="container">
+  <%= form_tag exam_result_questionnaire_path(@questionnaire) do %>
+    <h1><%= @questionnaire.title %></h1>
+    <% @questionnaire.questions.each_with_index do |question, question_index| %>
+      <ul class="list-group">
+        <li class="list-group-item"><%= question_index + 1 %>. <%= question.question_text %></li>
+        <ul>
+          <% question.question_answers.each_with_index do |question_answer, answer_index| %>
+            <li>
+              <div class="radio">
+                <label><input id="id_<%= question_answer.id %>" name="question_<%= question_index %>"
+                              type="radio" value="<%= answer_index + 1 %>"/> <%= question_answer.answer_text %></label>
+              </div>
+            </li>
+          <% end %>
+        </ul>
       </ul>
-    </ul>
-
-
+    <% end %>
+    <div class="btn-group" role="group" aria-label="Basic example">
+      <button type="submit" class="btn btn-outline-primary" name="btn_type">Проверить</button>
+      <%= link_to 'Назад', questionnaires_path, class: 'btn btn-outline-secondary' %>
+    </div>
   <% end %>
+</div>
 
-  <button type="submit" class="btn btn-sm btn-info" name="btn_type">Документ Word</button>
-<% end %>
+<br>
+<br>

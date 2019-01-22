@@ -1,7 +1,12 @@
 <div class='nested-fields'>
-
-<%= f.input :answer_text %>
-
-
-  <%= link_to_remove_association "удалить ответ", f %>
+  <div class="row">
+    <div class="col-10">
+      <%= f.input :answer_text, label: false %>
+    </div>
+    <div class="col-2">
+      <%= link_to_remove_association f do %>
+        <i class="fa fa-trash fa-2x"></i>
+      <% end %>
+    </div>
+  </div>
 </div>

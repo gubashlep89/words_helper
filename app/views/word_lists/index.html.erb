@@ -3,20 +3,21 @@
 <table class="table table-striped">
   <thead>
     <tr>
-      <th><h3>Наименование</h3></th>
-      <th><h3>Уровень сложности</h3></th>
-      <th colspan="5" class="text-center"><h3>Действия</h3></th>
+      <th>Наименование</th>
+      <th>Уровень сложности</th>
+      <th colspan="5" class="text-center">Действия</th>
     </tr>
   </thead>
 
   <tbody>
     <% @word_lists.each do |word_list| %>
       <tr>
-        <td><h4><%= word_list.name %></h4></td>
-        <td><h4><%= t "activerecord.attributes.word_list.list_types.#{word_list.list_type}" %></h4></td>
+        <td><%= word_list.name %></td>
+        <td><%= t "activerecord.attributes.word_list.list_types.#{word_list.list_type}" %></td>
         <td>
           <div class="dropdown show">
-            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <a class="btn btn-outline-secondary btn-sm dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               Упражнения
             </a>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
@@ -27,17 +28,17 @@
         </td>
         <td>
           <%= link_to word_list do %>
-            <i class="fa fa-eye fa-2x"></i>
+            <i class="fa fa-eye"></i>
           <% end %>
         </td>
         <td>
           <%= link_to edit_word_list_path(word_list) do %>
-            <i class="fa fa-pencil fa-2x"></i>
+            <i class="fa fa-pencil"></i>
           <% end %>
         </td>
         <td>
           <%= link_to word_list, method: :delete, data: {confirm: 'Вы уверены?'} do %>
-            <i class="fa fa-trash fa-2x"></i>
+            <i class="fa fa-trash"></i>
           <% end %>
         </td>
       </tr>
@@ -47,5 +48,5 @@
 
 <br>
 
-<%= link_to 'Создать новый список', new_word_list_path, class: 'btn btn-success' %>
+<%= link_to 'Создать новый список', new_word_list_path, class: 'btn btn-outline-primary' %>
 
