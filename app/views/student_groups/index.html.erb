@@ -14,19 +14,23 @@
         <tbody>
         <% student_group.students.each do |student| %>
           <tr>
-            <td></td>
-            <td></td>
+            <td><%= student.name %></td>
+            <td>""</td>
           </tr>
         <% end %>
         </tbody>
       </table>
       <p>
         <%= link_to 'Редакитровать группу', edit_student_group_path(student_group), class: 'btn btn-outline-secondary' %>
-        <%= link_to 'Удалить группы', student_group, method: :delete, data: {confirm: 'Вы уверены?'}, class: 'btn btn-outline-secondary' %>
+        <%= link_to 'Удалить группу', student_group, method: :delete, data: {confirm: 'Вы уверены?'}, class: 'btn btn-outline-danger' %>
       </p>
     </div>
   </div>
   <br>
 <% end %>
 <br>
-<%= link_to 'Добавить группу', new_user_student_group_path(@teacher), class: 'btn btn-outline-success' %>
+<p>
+  <%= link_to 'Добавить группу', new_user_student_group_path(@teacher), class: 'btn btn-outline-primary' %>
+  <%= link_to 'Назад', :back, class: 'btn btn-outline-secondary' %>
+</p>
+

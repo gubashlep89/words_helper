@@ -12,12 +12,16 @@
 
 class Student < ApplicationRecord
   belongs_to :user
-  belongs_to :student_group
+  belongs_to :student_group, optional: true
   has_one :teacher, through: :student_group
+
+  scope :free, -> { where(student_group_id: nil) }
 
   validate :check_if_teacher
 
-
+  def name
+    user.name
+  end
   private
 
   def check_if_teacher

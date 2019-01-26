@@ -28,4 +28,5 @@ Rails.application.routes.draw do
   end
   root to: 'visitors#index'
   get 'info', to: 'visitors#info'
+  get 'student_select', to: 'teachers#student_select'
 end

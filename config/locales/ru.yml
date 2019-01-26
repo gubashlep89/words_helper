@@ -24,6 +24,7 @@ ru:
       student_group:
         name: 'Наименование'
         description: 'Описание'
+        students: 'Студенты'
     errors:
       models:
         student_group:

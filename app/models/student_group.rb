@@ -17,6 +17,8 @@ class StudentGroup < ApplicationRecord
 
   has_many :students, dependent: :nullify
 
+  accepts_nested_attributes_for :students
+
   enum group_types: [:base, :custom]
 
   validates_presence_of :name

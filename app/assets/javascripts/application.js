@@ -15,4 +15,6 @@
 //= require rails-ujs
 //= require bootstrap-sprockets
 //= require cocoon
+//= require select2
+//= require select2_locale_ru
 //= require_tree .

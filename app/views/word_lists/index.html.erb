@@ -45,8 +45,10 @@
     <% end %>
   </tbody>
 </table>
-
 <br>
+<p>
+  <%= link_to 'Создать новый список', new_word_list_path, class: 'btn btn-outline-primary' %>
+  <%= link_to 'Назад', :back, class: 'btn btn-outline-secondary' %>
+</p>
 
-<%= link_to 'Создать новый список', new_word_list_path, class: 'btn btn-outline-primary' %>
 

@@ -7,3 +7,13 @@
 <li class="nav-item">
   <a class="nav-item nav-link text-dark" href="<%= questionnaires_path %>">Тесты</a>
 </li>
+<% if current_user %>
+  <li class="nav-item ml-auto">
+    <a class="nav-item nav-link text-dark" href="#"><%= current_user.name || current_user.email %></a>
+  </li>
+  <% if current_user.teacher %>
+    <li class="nav-item">
+      <a class="nav-item nav-link text-dark" href="<%= user_student_groups_path(current_user.teacher) %>">Студенты</a>
+    </li>
+  <% end %>
+<% end %>

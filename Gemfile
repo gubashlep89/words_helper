@@ -14,6 +14,7 @@ gem 'figaro'
 gem 'omniauth'
 gem 'omniauth-facebook'
 gem 'omniauth-vkontakte'
+gem 'select2-rails'
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
 end

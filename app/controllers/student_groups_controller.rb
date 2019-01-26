@@ -69,7 +69,6 @@ class StudentGroupsController < ApplicationController
         format.json { head :no_content }
       end
     end
-
   end
 
   private
@@ -84,6 +83,6 @@ class StudentGroupsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def student_group_params
-      params.require(:student_group).permit(:teacher_id, :name, :description)
+      params.require(:student_group).permit(:teacher_id, :name, :description, student_ids: [])
     end
 end
