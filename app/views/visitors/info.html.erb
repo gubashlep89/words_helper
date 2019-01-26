@@ -1,0 +1,19 @@
+<% user = current_user %>
+
+<% if user %>
+  <% if user.teacher %>
+    <h3>вы учитель - учите!</h3>
+    <%= render 'teacher_info' %>
+  <% elsif user.student %>
+    <h3>вы ученик - учитесь</h3>
+  <% else %>
+    <h3>вы не выбрали роль, идите выбирайте</h3>
+    <%= link_to 'Редактировать пользователя', edit_user_registration_path, class: 'btn btn-outline-primary' %>
+  <% end %>
+<% else %>
+  <h3>зарегестрируйтесь или аторизайтесь</h3>
+  <div class="btn-group" role="group" aria-label="Basic example">
+    <%= link_to 'Войти', new_user_session_path, class: 'btn btn-outline-primary' %>
+    <%= link_to 'Зарегистрироваться', new_user_registration_path, class: 'btn btn-outline-primary' %>
+  </div>
+<% end %>

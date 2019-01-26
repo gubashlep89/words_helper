@@ -1,0 +1,9 @@
+<h1>Редактировать группы студентов</h1>
+
+<% content_for :form_actions_after do %>
+  <%= link_to 'Назад', user_student_groups_path(@student_group.teacher), class: 'btn btn-outline-secondary' %>
+<% end %>
+
+<%= render 'form', student_group: @student_group %>
+
+<br>

@@ -14,7 +14,22 @@ ru:
       questionnaire:
         title: 'Наименование'
         description: 'Описание'
-
+      user:
+        name: 'Имя'
+        role: 'Статус'
+        vk_link: Ссылка на профиль 'Вконтакте'
+        fb_link: Ссылка на профиль 'Facebook'
+        phone: 'Телефон'
+        email: 'Адрес электронной почты'
+      student_group:
+        name: 'Наименование'
+        description: 'Описание'
+    errors:
+      models:
+        student_group:
+          attributes:
+            name:
+              blank: 'не может быть пустым'
   models:
     words:
       one: "Слово для запоминиания"

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_12_10_183028) do
+ActiveRecord::Schema.define(version: 2019_01_22_160242) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -38,6 +38,35 @@ ActiveRecord::Schema.define(version: 2018_12_10_183028) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["questionnaire_id"], name: "index_questions_on_questionnaire_id"
+  end
+
+  create_table "student_groups", force: :cascade do |t|
+    t.bigint "teacher_id"
+    t.string "name"
+    t.integer "group_type"
+    t.text "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["teacher_id"], name: "index_student_groups_on_teacher_id"
+  end
+
+  create_table "students", force: :cascade do |t|
+    t.bigint "user_id"
+    t.text "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "student_group_id"
+    t.index ["student_group_id"], name: "index_students_on_student_group_id"
+    t.index ["user_id"], name: "index_students_on_user_id"
+  end
+
+  create_table "teachers", force: :cascade do |t|
+    t.bigint "user_id"
+    t.decimal "rating", precision: 8, scale: 5
+    t.text "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_teachers_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -77,5 +106,9 @@ ActiveRecord::Schema.define(version: 2018_12_10_183028) do
 
   add_foreign_key "question_answers", "questions"
   add_foreign_key "questions", "questionnaires"
+  add_foreign_key "student_groups", "teachers"
+  add_foreign_key "students", "student_groups"
+  add_foreign_key "students", "users"
+  add_foreign_key "teachers", "users"
   add_foreign_key "words", "word_lists"
 end

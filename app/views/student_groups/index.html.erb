@@ -1,0 +1,32 @@
+<h1>Ваши студенты</h1>
+
+<% @student_groups.each do |student_group| %>
+  <div class="card">
+    <div class="card-body">
+      <h3>Студенты группы: <%= student_group.name %></h3>
+      <table class="table table-striped">
+        <thead>
+        <tr>
+          <th>Наименование</th>
+          <th>Задание</th>
+        </tr>
+        </thead>
+        <tbody>
+        <% student_group.students.each do |student| %>
+          <tr>
+            <td></td>
+            <td></td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+      <p>
+        <%= link_to 'Редакитровать группу', edit_student_group_path(student_group), class: 'btn btn-outline-secondary' %>
+        <%= link_to 'Удалить группы', student_group, method: :delete, data: {confirm: 'Вы уверены?'}, class: 'btn btn-outline-secondary' %>
+      </p>
+    </div>
+  </div>
+  <br>
+<% end %>
+<br>
+<%= link_to 'Добавить группу', new_user_student_group_path(@teacher), class: 'btn btn-outline-success' %>

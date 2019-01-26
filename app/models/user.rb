@@ -25,7 +25,9 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable, :omniauthable, :omniauth_providers => [:facebook, :vkontakte]
 
-  has_many :services, :dependent => :destroy
+  has_many :services, dependent: :destroy
+  has_one :student, dependent: :destroy
+  has_one :teacher, dependent: :destroy
 
   def self.from_facebook(auth)
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
@@ -43,4 +45,7 @@ class User < ApplicationRecord
       user.password = Devise.friendly_token[0, 20]
     end
   end
+
+  private
+
 end

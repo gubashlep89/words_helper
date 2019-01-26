@@ -1,38 +1,76 @@
-<h2>Edit <%= resource_name.to_s.humanize %></h2>
+<h2 class="text-center">Настройки пользователя</h2>
 
-<%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+<%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: {method: :put}) do |f| %>
   <%= f.error_notification %>
 
   <div class="form-inputs">
-    <%= f.input :name %>
-    <%= f.input :phone %>
-    <%= f.input :vk_link %>
-    <%= f.input :email, required: true, autofocus: true %>
+    <div class="row">
+      <div class="col">
+        <%= f.input :name %>
+        <%= f.input :phone %>
+        <%= f.input :vk_link, placeholder: "Вставьте сюда ссылку на ваш профиль 'Вконтакте' для связи с вами" %>
+        <%= f.input :fb_link, placeholder: "Вставьте сюда ссылку на ваш профиль 'Facebook' для связи с вами" %>
+        <%= f.input :email, required: true, autofocus: true %>
 
-    <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-      <p>Currently waiting confirmation for: <%= resource.unconfirmed_email %></p>
-    <% end %>
+        <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+          <p>Currently waiting confirmation for: <%= resource.unconfirmed_email %></p>
+        <% end %>
 
-    <%= f.input :password,
-                hint: "leave it blank if you don't want to change it",
-                required: false,
-                input_html: { autocomplete: "new-password" } %>
-    <%= f.input :password_confirmation,
-                required: false,
-                input_html: { autocomplete: "new-password" } %>
-    <%= f.input :current_password,
-                hint: "we need your current password to confirm your changes",
-                required: true,
-                input_html: { autocomplete: "current-password" } %>
+        <% unless current_user.provider %>
+          <%= f.input :password,
+                      hint: "Оставьте поле пустым, если не хотите менять пароль",
+                      required: false,
+                      input_html: {autocomplete: "Новый пароль"} %>
+          <%= f.input :password_confirmation,
+                      required: false,
+                      input_html: {autocomplete: "Новый пароль"} %>
+          <%= f.input :current_password,
+                      hint: "Необходимо ввести текущий пароль для подтверждения изменений",
+                      required: true,
+                      input_html: {autocomplete: "Текущий пароль"} %>
+        <% end %>
+      </div>
+      <div class="col">
+        <% if current_user.student %>
+          <br>
+          <h4>
+            Ваша роль: "Студент", вы можете проходить обучение,
+            <%= current_user.student.teacher ? "получая задания от своего преподавателя" : 'а так же выбрать себе преподавателя' %>
+          </h4>
+        <% elsif current_user.teacher %>
+          <br>
+          <h4>
+            Ваша роль "Преподаватель", вы можете создавать задания,
+            а так же приглашать студентов к себе в группу.
+          </h4>
+        <% else %>
+          <h3 class="text-center">Пожалуйста выберете роль пользователя на портале</h3>
+          <div class="container">
+            <div class="row">
+              <div class="col text-center">
+                <%= link_to 'Преподаватель', user_create_teacher_path(@user),
+                            data: {confirm: "Указать вашу роль как 'Преподаватель'?"},
+                            class: 'btn btn-outline-primary' %>
+              </div>
+              <div class="col text-center">
+                <%= link_to 'Студент', user_create_student_path(@user),
+                            data: {confirm: "Указать вашу роль как 'Студент'?"},
+                            class: 'btn btn-outline-primary' %>
+              </div>
+            </div>
+          </div>
+
+        <% end %>
+      </div>
+    </div>
   </div>
 
-  <div class="form-actions">
-    <%= f.button :submit, "Update" %>
+  <%= link_to "Удалить аккаунт", registration_path(resource_name),
+              data: {confirm: "Вы уверены?"}, method: :delete, class: 'btn btn-outline-danger pull-right' %>
+  <br>
+
+  <div class="btn-group form-actions" role="group" aria-label="Basic example">
+    <%= f.button :submit, 'Обновить', class: 'btn btn-outline-success' %>
+    <%= link_to 'Назад', :back, class: 'btn btn-outline-secondary' %>
   </div>
 <% end %>
-
-<h3>Cancel my account</h3>
-
-<p>Unhappy? <%= link_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete %></p>
-
-<%= link_to "Back", :back %>
