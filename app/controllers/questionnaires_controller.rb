@@ -106,14 +106,15 @@ class QuestionnairesController < ApplicationController
           options: {},
           questions_attributes:
               [:id,
-              :question_text,
-              :correct_answer,
-              :_destroy,
-              question_answers_attributes:
-                  [:id,
-                  :answer_text,
-                  :_destroy
-                  ]
+               :question_text,
+               :correct_answer,
+               :_destroy,
+               question_answers_attributes:
+                   [:id,
+                    :is_correct_flag,
+                    :answer_text,
+                    :_destroy
+                   ]
               ])
     end
 end

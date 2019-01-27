@@ -1,5 +1,4 @@
 <div class='nested-fields'>
-
   <div class="card">
     <div class="card-body">
       <div class="row">
@@ -15,12 +14,17 @@
       <div class="row">
         <div class="col">
           <%= f.input :question_text, label: false %>
-          <%= f.input :correct_answer, as: :select,
+          <%#= f.input :correct_answer, as: :select,
                       collection: 1..f.object.question_answers.count, label: 'Правильный ответ' %>
         </div>
         <div class="col">
-          <div id='questions'>
-            <%= f.simple_fields_for :question_answers do |question_answer| %>
+          <div class='questions'>
+            <% if (question_answers_error = (f.object.errors[:question_answers].presence || f.object.errors[:correct_answer].presence)).present? %>
+              <div class="alert alert-danger">
+                <%= question_answers_error.join(', ') if question_answers_error %>
+              </div>
+            <% end %>
+            <%= f.simple_fields_for :question_answers, f.object.question_answers.sort_by{|qa| qa.id} do |question_answer| %>
               <%= render 'question_answer_fields', :f => question_answer %>
             <% end %>
             <div class='links'>

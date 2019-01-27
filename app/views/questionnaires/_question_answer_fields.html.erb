@@ -1,6 +1,7 @@
 <div class='nested-fields'>
   <div class="row">
     <div class="col-10">
+      <%= f.input :is_correct_flag, as: :boolean, input_html: {class: 'is-correct-flag'} %>
       <%= f.input :answer_text, label: false %>
     </div>
     <div class="col-2">
