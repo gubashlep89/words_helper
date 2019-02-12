@@ -14,6 +14,10 @@ ru:
       questionnaire:
         title: 'Наименование'
         description: 'Описание'
+      question:
+        question_text: ''
+      question_answer:
+        answer_text: ''
       user:
         name: 'Имя'
         role: 'Статус'
@@ -30,7 +34,27 @@ ru:
         student_group:
           attributes:
             name:
-              blank: 'не может быть пустым'
+              blank: 'Необходимо указать наименование'
+              taken: 'Такой наименование уже существует'
+        question:
+          attributes:
+            question_answers:
+              blank: 'Необходимо добавить ответы'
+            question_text:
+              blank: 'Необходимо заполнить текст вопроса'
+            correct_answer:
+              blank: 'Не выбран правильный ответ'
+        questionnaire:
+          attributes:
+            questions:
+              blank: 'Необходимо добавить вопросы'
+            title:
+              blank: ' - необходимо заполнить'
+        question_answer:
+          attributes:
+            answer_text:
+              blank: 'Необходимо заполнить текст ответа'
+
   models:
     words:
       one: "Слово для запоминиания"

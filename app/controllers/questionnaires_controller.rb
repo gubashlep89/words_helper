@@ -35,7 +35,10 @@ class QuestionnairesController < ApplicationController
 
     respond_to do |format|
       if @questionnaire.save
-        format.html { redirect_to @questionnaire, notice: 'Тест успешно создан.' }
+        format.html { redirect_to @questionnaire,
+                      notice:
+                          'Тест успешно создан, для заполнения вопросов и ответов
+                            - пройдите в раздел "Редактировать тест".'}
         format.json { render :show, status: :created, location: @questionnaire }
       else
         format.html { render :new }
@@ -76,12 +79,12 @@ class QuestionnairesController < ApplicationController
     total = {}
     questions_count = 0
     correct_answer_count = 0
-    @questionnaire.questions.each_with_index  do |question, question_index|
-      if question.correct_answer.to_s == params["question_#{question_index}"]
+    @questionnaire.questions.each  do |question|
+      if question.correct_answer.id.to_s == params["question_#{question.id}"]
         result = {'correct' => true}
         correct_answer_count += 1
       else
-        result = {'correct' => false, 'incorrect_answer' => params["question_#{question_index}"]}
+        result = {'correct' => false, 'incorrect_answer' => params["question_#{question.id}"]}
       end
       questions = {"question#{question.id}" => result}
       total.merge!(questions)

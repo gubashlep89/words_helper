@@ -31,7 +31,7 @@ class StudentGroupsController < ApplicationController
 
     respond_to do |format|
       if @student_group.save
-        format.html {redirect_to user_student_groups_path(@student_group.teacher),
+        format.html {redirect_to teacher_student_groups_path(@student_group.teacher),
                       notice: 'Группа студентов успешно создана.'}
         format.json { render :show, status: :created, location: @student_group }
       else
@@ -46,7 +46,7 @@ class StudentGroupsController < ApplicationController
   def update
     respond_to do |format|
       if @student_group.update(student_group_params)
-        format.html {redirect_to user_student_groups_path(@student_group.teacher),
+        format.html {redirect_to teacher_student_groups_path(@student_group.teacher),
                                  notice: 'Группа студентов успешно обновлена.'}
         format.json { render :show, status: :ok, location: @student_group }
       else
@@ -65,7 +65,7 @@ class StudentGroupsController < ApplicationController
     else
       @student_group.destroy
       respond_to do |format|
-        format.html { redirect_to user_student_groups_path(teacher), notice: 'Группа студентов успешно удалена.' }
+        format.html { redirect_to teacher_student_groups_path(teacher), notice: 'Группа студентов успешно удалена.' }
         format.json { head :no_content }
       end
     end
@@ -78,7 +78,7 @@ class StudentGroupsController < ApplicationController
     end
 
     def set_teacher
-      @teacher = (User.find(params[:user_id]) || current_user).teacher
+      @teacher = (Teacher.find(params[:teacher_id]) || current_user.teacher)
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

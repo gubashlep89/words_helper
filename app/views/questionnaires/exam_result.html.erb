@@ -6,11 +6,11 @@
       <h3 class="text-<%= @total["question#{question.id}"]['correct'] ? 'success' : 'danger' %>">
         <%= question.question_text %>
       </h3>
-      <% question.question_answers.each_with_index do |answer, answer_index| %>
+      <% question.question_answers.sort_by {|qa| qa.id}.each do |answer| %>
         <%
-          if @total["question#{question.id}"]['incorrect_answer'] == (answer_index + 1).to_s
+          if @total["question#{question.id}"]['incorrect_answer'] == (answer.id).to_s
             text_class = 'text-danger'
-          elsif question.correct_answer == answer_index + 1
+          elsif question.correct_answer == answer
             text_class = 'text-success'
           else
             text_class = ""
@@ -19,7 +19,6 @@
         <li class="<%= text_class %>"><%= answer.answer_text %></li>
       <% end %>
     </ul>
-
   <% end %>
 </div>
 

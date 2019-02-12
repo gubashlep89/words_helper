@@ -24,4 +24,8 @@ class Users::SessionsController < Devise::SessionsController
   def configure_sign_in_params
     devise_parameter_sanitizer.permit(:sign_in, keys: [:name, :role, :vk_link, :phone, :email, :password, :password_confirmation])
   end
+
+  def after_sign_in_path_for(resource)
+    session[:previous_url] || super(resource)
+  end
 end

@@ -1,14 +1,21 @@
-<%= simple_form_for(student_group, { url: student_group.try(:new_record?) ? user_student_groups_path(@teacher) : student_group }) do |f| %>
+<%= simple_form_for(student_group, {url: student_group.try(:new_record?) ? teacher_student_groups_path(@teacher) : student_group}) do |f| %>
   <%= f.error_notification %>
   <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
 
   <div class="form-inputs">
     <%= f.input :name %>
     <%= f.input :description %>
+    <%
+      url_params = student_group.try(:new_record?) ? {} : {student_group_id: student_group.id}
+      url = student_select_url({format: :json}.merge url_params)
+    %>
     <%= f.association :students, input_html: {
         class: 'select2-student-select',
-        'data-select2-url': student_select_url(format: :json)
+        'data-select2-url': url
     } %>
+    <% unless student_group.new_record? %>
+        <p>Ссылка для приглашения пользователей в данную группу: <%= connect_from_link_url %>?group_id=<%= student_group.id %></p>
+    <% end %>
   </div>
 
   <div class="form-actions">

@@ -8,6 +8,11 @@
 
     <h1 class="text-center">Вопросы</h1>
     <div id='questions'>
+      <% if (questions_error = f.object.errors[:questions].presence).present? %>
+        <div class="alert alert-danger">
+          <%= questions_error.join(', ') if questions_error %>
+        </div>
+      <% end %>
       <%= f.simple_fields_for :questions do |question| %>
         <%= render 'question_fields', :f => question %>
       <% end %>

@@ -21,8 +21,8 @@ class Teacher < ApplicationRecord
 
   validate :check_if_student
 
-  def build_link_to_student
-
+  def name
+    user.name
   end
 
   def create_base_group

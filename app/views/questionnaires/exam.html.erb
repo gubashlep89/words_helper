@@ -5,11 +5,11 @@
       <ul class="list-group">
         <li class="list-group-item"><%= question_index + 1 %>. <%= question.question_text %></li>
         <ul>
-          <% question.question_answers.each_with_index do |question_answer, answer_index| %>
+          <% question.question_answers.sort_by{|qa| qa.id}.each do |question_answer| %>
             <li>
               <div class="radio">
-                <label><input id="id_<%= question_answer.id %>" name="question_<%= question_index %>"
-                              type="radio" value="<%= answer_index + 1 %>"/> <%= question_answer.answer_text %></label>
+                <label><input id="id_<%= question_answer.id %>" name="question_<%= question.id %>"
+                              type="radio" value="<%= question_answer.id %>"/> <%= question_answer.answer_text %></label>
               </div>
             </li>
           <% end %>

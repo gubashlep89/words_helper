@@ -8,6 +8,8 @@ Rails.application.routes.draw do
   resources :users, only: [] do
     get 'create_teacher'
     get 'create_student'
+  end
+  resources :teachers, only: [] do
     resources :student_groups, except: [:show], shallow: true
   end
   resources :questionnaires do
@@ -29,4 +31,6 @@ Rails.application.routes.draw do
   root to: 'visitors#index'
   get 'info', to: 'visitors#info'
   get 'student_select', to: 'teachers#student_select'
+  get 'connect_from_link', to: 'teachers#connect_from_link'
+  post 'join_teacher_group', to: 'teachers#join_teacher_group'
 end
