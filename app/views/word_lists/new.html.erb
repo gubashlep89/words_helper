@@ -1,7 +1,10 @@
 <h1>Новый список слов</h1>
 
+<% content_for :form_actions_after do %>
+  <%= link_to 'Назад', word_lists_path, class: 'btn btn-outline-secondary' %>
+<% end %>
+
 <%= render 'form', word_list: @word_list %>
 
-<%= link_to 'Назад', word_lists_path, class: 'btn btn-outline-secondary' %>
 <br>
 <br>

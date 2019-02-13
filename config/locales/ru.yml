@@ -54,6 +54,17 @@ ru:
           attributes:
             answer_text:
               blank: 'Необходимо заполнить текст ответа'
+        word_list:
+          attributes:
+            name:
+              blank: ' - необходимо заполнить'
+        word:
+          attributes:
+            english_word:
+              blank: ' - необходимо заполнить'
+            value:
+              blank: ' - необходимо заполнить'
+
 
   models:
     words:

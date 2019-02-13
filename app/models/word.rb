@@ -17,6 +17,8 @@
 class Word < ApplicationRecord
   belongs_to :word_list
 
+  validates_presence_of :english_word, :value
+
   def check_answer(answer)
     if value.downcase == answer.downcase
       true

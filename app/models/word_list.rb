@@ -16,9 +16,10 @@ class WordList < ApplicationRecord
   enum list_type: STATUSES
 
   has_many :words, dependent: :destroy
-  accepts_nested_attributes_for :words, reject_if: :all_blank, allow_destroy: true
+  accepts_nested_attributes_for :words, allow_destroy: true
 
   validate :words_exists
+  validates_presence_of :name
 
   private
 
