@@ -10,10 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_01_27_120230) do
+ActiveRecord::Schema.define(version: 2019_02_13_115601) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "home_works", force: :cascade do |t|
+    t.integer "group_or_student"
+    t.datetime "check_point"
+    t.text "comment"
+    t.bigint "teacher_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["teacher_id"], name: "index_home_works_on_teacher_id"
+  end
 
   create_table "question_answers", force: :cascade do |t|
     t.text "answer_text"
@@ -30,6 +40,8 @@ ActiveRecord::Schema.define(version: 2019_01_27_120230) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.jsonb "options", default: {}
+    t.bigint "home_work_id"
+    t.index ["home_work_id"], name: "index_questionnaires_on_home_work_id"
   end
 
   create_table "questions", force: :cascade do |t|
@@ -57,6 +69,8 @@ ActiveRecord::Schema.define(version: 2019_01_27_120230) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "student_group_id"
+    t.bigint "home_work_id"
+    t.index ["home_work_id"], name: "index_students_on_home_work_id"
     t.index ["student_group_id"], name: "index_students_on_student_group_id"
     t.index ["user_id"], name: "index_students_on_user_id"
   end
@@ -94,6 +108,8 @@ ActiveRecord::Schema.define(version: 2019_01_27_120230) do
     t.integer "list_type"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "home_work_id"
+    t.index ["home_work_id"], name: "index_word_lists_on_home_work_id"
   end
 
   create_table "words", force: :cascade do |t|
@@ -105,11 +121,15 @@ ActiveRecord::Schema.define(version: 2019_01_27_120230) do
     t.index ["word_list_id"], name: "index_words_on_word_list_id"
   end
 
+  add_foreign_key "home_works", "teachers"
   add_foreign_key "question_answers", "questions"
+  add_foreign_key "questionnaires", "home_works"
   add_foreign_key "questions", "questionnaires"
   add_foreign_key "student_groups", "teachers"
+  add_foreign_key "students", "home_works"
   add_foreign_key "students", "student_groups"
   add_foreign_key "students", "users"
   add_foreign_key "teachers", "users"
+  add_foreign_key "word_lists", "home_works"
   add_foreign_key "words", "word_lists"
 end

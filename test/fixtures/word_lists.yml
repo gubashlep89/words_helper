@@ -2,11 +2,12 @@
 #
 # Table name: word_lists
 #
-#  id         :bigint(8)        not null, primary key
-#  name       :string
-#  list_type  :integer
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
+#  id           :bigint(8)        not null, primary key
+#  name         :string
+#  list_type    :integer
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#  home_work_id :bigint(8)
 #
 
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html

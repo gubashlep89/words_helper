@@ -1,19 +1,19 @@
 # == Schema Information
 #
-# Table name: students
+# Table name: home_works
 #
 #  id               :bigint(8)        not null, primary key
-#  user_id          :bigint(8)
-#  description      :text
+#  group_or_student :integer
+#  check_point      :datetime
+#  comment          :text
+#  teacher_id       :bigint(8)
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
-#  student_group_id :bigint(8)
-#  home_work_id     :bigint(8)
 #
 
 require 'test_helper'
 
-class StudentTest < ActiveSupport::TestCase
+class HomeWorkTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end

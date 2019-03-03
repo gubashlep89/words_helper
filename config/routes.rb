@@ -8,6 +8,12 @@ Rails.application.routes.draw do
   resources :users, only: [] do
     get 'create_teacher'
     get 'create_student'
+    resources :home_works, shallow: true do
+      collection do
+        get 'group_select'
+        get 'hw_student_select'
+      end
+    end
   end
   resources :teachers, only: [] do
     resources :student_groups, except: [:show], shallow: true

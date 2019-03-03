@@ -35,6 +35,7 @@ group :test do
 end
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'bootstrap', '~> 4.1.3'
+gem 'bootstrap4-datetime-picker-rails'
 gem 'high_voltage'
 gem 'jquery-rails'
 gem 'pg'

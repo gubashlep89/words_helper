@@ -1,0 +1,26 @@
+# == Schema Information
+#
+# Table name: home_works
+#
+#  id               :bigint(8)        not null, primary key
+#  group_or_student :integer
+#  check_point      :datetime
+#  comment          :text
+#  teacher_id       :bigint(8)
+#  created_at       :datetime         not null
+#  updated_at       :datetime         not null
+#
+
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  group_or_student: 1
+  check_point: 2019-02-13 15:54:50
+  comment: MyText
+  teacher: one
+
+two:
+  group_or_student: 1
+  check_point: 2019-02-13 15:54:50
+  comment: MyText
+  teacher: two

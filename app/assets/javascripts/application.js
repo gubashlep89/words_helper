@@ -18,4 +18,8 @@
 //= require select2
 //= require select2_locale_ru
 //= require zeroclipboard
+//= require moment
+//= require moment/ru
+//= require moment-timezone-with-data
+//= require tempusdominus-bootstrap-4
 //= require_tree .

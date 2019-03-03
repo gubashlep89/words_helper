@@ -8,6 +8,7 @@
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
 #  student_group_id :bigint(8)
+#  home_work_id     :bigint(8)
 #
 
 class Student < ApplicationRecord

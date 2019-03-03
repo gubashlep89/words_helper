@@ -1,0 +1,73 @@
+<%= simple_form_for(home_work, {url: home_work.try(:new_record?) ? user_home_works_path(@user) : home_work}) do |f| %>
+  <%= f.error_notification %>
+  <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+
+  <div class="form-inputs">
+    <%#= f.input :group_or_student %>
+
+    <%= f.input :group_or_student,
+                as: :select,
+                collection: HomeWork.group_or_students.map {
+                    |type, key| [t('activerecord.attributes.home_work.group_or_students.'+ type), type]
+                } %>
+    <%= f.input :student_group, as: :select, input_html: {
+        class: 'select2-home-work-group-select',
+        'data-select2-url': group_select_user_home_works_url(@user)
+    } %>
+
+    <div class="home-work-students-form" style="<%= 'display:none;' unless home_work.students.present? %>">
+      <%= f.association :students, input_html: {
+          class: 'select2-home-work-student-select',
+          'data-select2-url': hw_student_select_user_home_works_url(@user)
+      } %>
+    </div>
+
+
+
+    <div class="row">
+      <div class="col-6">
+        <%= f.input :check_point, as: :string,
+                    input_html: {class: 'datetimepicker datetimepicker-input', value: f.object.check_point} %>
+      </div>
+    </div>
+
+    <%= f.input :comment %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>
+
+
+<script type="text/javascript" charset="utf-8">
+    $(document).off('change.select2-home-work-group-select').on('change.select2-home-work-group-select', '.select2-home-work-group-select',
+        function () {
+            console.log($(this).val(), 'qwe');
+            var group_id = $(this).val();
+            if ($(this).val()) {
+                $('.home-work-students-form').show();
+                $('.select2-home-work-student-select').val(null);
+                $('.select2-home-work-student-select').select2({
+                    width: "100%",
+                    theme: "bootstrap",
+                    language: "ru",
+                    placeholder: "",
+                    ajax: {
+                        url: $(".select2-home-work-student-select").data('select2Url'),
+                        data: function (params) {
+                            var query = {
+                                search: params.term || '',
+                                page: params.page || 1,
+                                type: 'public',
+                                group_id: group_id
+                            };
+                            return query;
+                        }
+                    }
+                });
+            } else {
+                $('.home-work-students-form').hide();
+            }
+        });
+</script>

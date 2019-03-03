@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Group or student:</strong>
+  <%= @home_work.group_or_student %>
+</p>
+
+<p>
+  <strong>Check point:</strong>
+  <%= @home_work.check_point %>
+</p>
+
+<p>
+  <strong>Comment:</strong>
+  <%= @home_work.comment %>
+</p>
+
+<p>
+  <strong>Teacher:</strong>
+  <%= @home_work.teacher %>
+</p>
+
+<%= link_to 'Edit', edit_home_work_path(@home_work) %> |
+<%= link_to 'Back', home_works_path %>

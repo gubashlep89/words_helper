@@ -16,6 +16,7 @@ class Teacher < ApplicationRecord
 
   has_many :student_groups, dependent: :destroy
   has_many :students, through: :student_groups
+  has_many :home_works, dependent: :destroy
 
   after_create :create_base_group
 
