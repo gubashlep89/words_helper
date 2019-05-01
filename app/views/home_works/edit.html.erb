@@ -1,6 +1,9 @@
-<h1>Editing Home Work</h1>
+<h1>Редактировать задание</h1>
+
+<% content_for :form_actions_after do %>
+  <%= link_to 'Просмотреть', @home_work, class: 'btn btn-outline-primary' %>
+  <%= link_to 'Назад', user_home_works_path(@user), class: 'btn btn-outline-secondary' %>
+<% end %>
 
 <%= render 'form', home_work: @home_work %>
 
-<%= link_to 'Show', @home_work %> |
-<%= link_to 'Back', home_works_path %>

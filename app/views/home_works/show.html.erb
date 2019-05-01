@@ -1,24 +1,65 @@
-<p id="notice"><%= notice %></p>
+<br>
+<div class="card">
+  <div class="card-body">
+    <div class="row">
+      <div class="col">
+        <h3 class="text-center">Задание для:</h3>
+        <h5>Группа студентов:</h5>
+        <p>
+          <%= @home_work.student_group.name %>
+        </p>
+        <h5>Студенты:</h5>
+        <ul>
+          <% @home_work.students.each do |student| %>
+            <li><%= student.name %></li>
+          <% end %>
+        </ul>
+      </div>
+      <div class="vl"></div>
+      <div class="col">
+        <h3 class="text-center">Задания:</h3>
+        <% if @home_work.questionnaires.any? %>
+          <h5>Тесты:</h5>
+          <ul>
+            <% @home_work.questionnaires.each do |questionnaire| %>
+              <li><%= questionnaire.title %></li>
+            <% end %>
+          </ul>
+        <% end %>
+        <% if @home_work.word_lists.any? %>
+          <h5>Списки для запоминания:</h5>
+          <ul>
+            <% @home_work.word_lists.each do |word_list| %>
+              <li><%= word_list.name %></li>
+            <% end %>
+          </ul>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+<br>
+<div class="card">
+  <div class="card-body">
+    <div class="row">
+      <div class="col-2">
+        <h6>Дата назначения:</h6>
+        <%= @home_work.created_at.strftime('%d.%m.%Y') %>
+      </div>
+      <div class="col-2">
+        <h6>Дата проверки:</h6>
+        <%= @home_work.check_point ? @home_work.check_point.strftime('%d.%m.%Y') : '-' %>
+      </div>
+      <div class="col-8">
+        <h6>Коментарий: <%= @home_work.comment.empty? ? '-' : @home_work.comment %></h6>
 
-<p>
-  <strong>Group or student:</strong>
-  <%= @home_work.group_or_student %>
-</p>
+      </div>
+    </div>
+  </div>
+</div>
+<br>
+<div class="btn-group" role="group" aria-label="Basic example">
+  <%= link_to 'Редактировать список', edit_home_work_path(@home_work), class: 'btn btn-outline-primary' %>
+  <%= link_to 'Назад', user_home_works_path(@user), class: 'btn btn-outline-secondary' %>
+</div>
 
-<p>
-  <strong>Check point:</strong>
-  <%= @home_work.check_point %>
-</p>
-
-<p>
-  <strong>Comment:</strong>
-  <%= @home_work.comment %>
-</p>
-
-<p>
-  <strong>Teacher:</strong>
-  <%= @home_work.teacher %>
-</p>
-
-<%= link_to 'Edit', edit_home_work_path(@home_work) %> |
-<%= link_to 'Back', home_works_path %>

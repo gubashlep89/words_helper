@@ -3,71 +3,94 @@
   <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
 
   <div class="form-inputs">
-    <%#= f.input :group_or_student %>
-
-    <%= f.input :group_or_student,
-                as: :select,
-                collection: HomeWork.group_or_students.map {
-                    |type, key| [t('activerecord.attributes.home_work.group_or_students.'+ type), type]
-                } %>
-    <%= f.input :student_group, as: :select, input_html: {
-        class: 'select2-home-work-group-select',
-        'data-select2-url': group_select_user_home_works_url(@user)
-    } %>
-
-    <div class="home-work-students-form" style="<%= 'display:none;' unless home_work.students.present? %>">
-      <%= f.association :students, input_html: {
-          class: 'select2-home-work-student-select',
-          'data-select2-url': hw_student_select_user_home_works_url(@user)
-      } %>
-    </div>
-
-
-
     <div class="row">
-      <div class="col-6">
+      <div class="col">
+        <%= f.association :student_group, as: :select, input_html: {
+            class: 'select2-home-work-group-select',
+            'data-select2-url': group_select_user_home_works_url(@user)
+        } %>
+        <div class="home-work-students-form" style="<%= 'display:none;' unless (home_work.students.present? or f.object.student_group_id) %>">
+          <%= f.input :group_or_student %>
+          <div class="home-work-student-select" style="<%= 'display:none;' if home_work.group_or_student %>">
+            <%= f.association :students, input_html: {
+                class: 'select2-home-work-student-select',
+                'data-select2-url': hw_student_select_user_home_works_url(@user)
+            } %>
+          </div>
+        </div>
         <%= f.input :check_point, as: :string,
                     input_html: {class: 'datetimepicker datetimepicker-input', value: f.object.check_point} %>
+        <%= f.hidden_field :teacher_id, value: @user.teacher.id %>
+      </div>
+      <div class="col">
+        <%= f.association :questionnaires, input_html: {
+      class: 'select2-questionnaire-select',
+      'data-select2-url': questionnaire_select_questionnaires_url
+        } %>
+
+        <%= f.association :word_lists, input_html: {
+      class: 'select2-word_list-select',
+      'data-select2-url': word_list_select_word_lists_url
+        } %>
+        <%= f.input :comment %>
       </div>
     </div>
-
-    <%= f.input :comment %>
   </div>
 
   <div class="form-actions">
-    <%= f.button :submit %>
+    <div class="btn-group" role="group" aria-label="Basic example">
+      <%= yield(:form_actions_before) %>
+      <%= f.button :submit, class: 'btn btn-outline-success' %>
+      <%= yield(:form_actions_after) %>
+    </div>
   </div>
 <% end %>
 
 
 <script type="text/javascript" charset="utf-8">
-    $(document).off('change.select2-home-work-group-select').on('change.select2-home-work-group-select', '.select2-home-work-group-select',
-        function () {
-            console.log($(this).val(), 'qwe');
-            var group_id = $(this).val();
-            if ($(this).val()) {
-                $('.home-work-students-form').show();
-                $('.select2-home-work-student-select').val(null);
-                $('.select2-home-work-student-select').select2({
-                    width: "100%",
-                    theme: "bootstrap",
-                    language: "ru",
-                    placeholder: "",
-                    ajax: {
-                        url: $(".select2-home-work-student-select").data('select2Url'),
-                        data: function (params) {
-                            var query = {
-                                search: params.term || '',
-                                page: params.page || 1,
-                                type: 'public',
-                                group_id: group_id
-                            };
-                            return query;
-                        }
-                    }
-                });
-            } else {
-                $('.home-work-students-form').hide();
+    $('.select2-home-work-group-select').on('change', function () {
+        var group_id = $(this).val();
+        init_students_select2(group_id);
+        if ($(this).val()) {
+            $('.home-work-students-form').show();
+            $('#home_work_group_or_student').on('change', function () {
+                hide_students_select(this);
+            })
+        } else {
+            $('.home-work-students-form').hide();
+        }
+    });
+    $('#home_work_group_or_student').on('change', function () {
+        hide_students_select(this);
+    });
+    init_students_select2($('.select2-home-work-group-select').val());
+
+    function hide_students_select(checkbox) {
+        if (checkbox.checked) {
+            $('.home-work-student-select').hide();
+        } else {
+            $('.home-work-student-select').show();
+        }
+    }
+
+    function init_students_select2(group_id) {
+        $('.select2-home-work-student-select').select2({
+            width: "100%",
+            theme: "bootstrap",
+            language: "ru",
+            placeholder: "",
+            ajax: {
+                url: $(".select2-home-work-student-select").data('select2Url'),
+                data: function (params) {
+                    var query = {
+                        search: params.term || '',
+                        page: params.page || 1,
+                        type: 'public',
+                        group_id: group_id
+                    };
+                    return query;
+                }
             }
         });
+    }
 </script>

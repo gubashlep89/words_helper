@@ -29,7 +29,7 @@ class HomeWorksController < ApplicationController
 
     respond_to do |format|
       if @home_work.save
-        format.html {redirect_to @home_work, notice: 'Home work was successfully created.'}
+        format.html {redirect_to @home_work, notice: 'Задание успешно создано.'}
         format.json {render :show, status: :created, location: @home_work}
       else
         format.html {render :new}
@@ -43,7 +43,7 @@ class HomeWorksController < ApplicationController
   def update
     respond_to do |format|
       if @home_work.update(home_work_params)
-        format.html {redirect_to @home_work, notice: 'Home work was successfully updated.'}
+        format.html {redirect_to @home_work, notice: 'Задание успешно обновлено.'}
         format.json {render :show, status: :ok, location: @home_work}
       else
         format.html {render :edit}
@@ -57,7 +57,7 @@ class HomeWorksController < ApplicationController
   def destroy
     @home_work.destroy
     respond_to do |format|
-      format.html {redirect_to home_works_url, notice: 'Home work was successfully destroyed.'}
+      format.html {redirect_to user_home_works_url(@user), notice: 'Задание успешно удалено.'}
       format.json {head :no_content}
     end
   end
@@ -66,9 +66,6 @@ class HomeWorksController < ApplicationController
     search = params[:search]
     page = params[:page].present? ? params[:page].to_i : 1
     groups = @user.teacher.student_groups
-    if (home_work_id = params[:home_work_id]).present?
-      group = free_students.or(HomeWork.find(home_work_id).students.first.student_group)
-    end
     if search.present?
       groups = groups.where('student_groups.name ILIKE ?', "%" + search + "%")
     end
@@ -118,11 +115,12 @@ class HomeWorksController < ApplicationController
   end
 
   def set_user
-    @user = User.find(params[:user_id])
+    @user = current_user || User.find(params[:user_id])
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def home_work_params
-    params.require(:home_work).permit(:group_or_student, :check_point, :comment, :teacher_id)
+    params.require(:home_work).permit(:group_or_student, :check_point, :comment, :teacher_id, :student_group_id,
+                                      student_ids: [], questionnaire_ids: [], word_list_ids: [])
   end
 end

@@ -117,6 +117,28 @@ class WordListsController < ApplicationController
     end
   end
 
+  def word_list_select
+    search = params[:search]
+    page = params[:page].present? ? params[:page].to_i : 1
+    word_lists = WordList.all
+    if search.present?
+      word_lists = word_lists.where('word_lists.name ILIKE ?', "%" + search + "%")
+    end
+    word_lists = word_lists.limit(11)
+    word_lists = word_lists.offset(10*(page - 1))
+    result = {
+        "results": word_lists[0..9].map {|word_list| {id: word_list.id, text: word_list.name}},
+        "pagination": {
+            "more": (word_lists.count == 11)
+        }
+    }
+    respond_to do |format|
+      format.json {
+        render json: result
+      }
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_word_list

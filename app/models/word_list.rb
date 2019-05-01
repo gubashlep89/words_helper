@@ -2,12 +2,11 @@
 #
 # Table name: word_lists
 #
-#  id           :bigint(8)        not null, primary key
-#  name         :string
-#  list_type    :integer
-#  created_at   :datetime         not null
-#  updated_at   :datetime         not null
-#  home_work_id :bigint(8)
+#  id         :bigint(8)        not null, primary key
+#  name       :string
+#  list_type  :integer
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
 #
 
 class WordList < ApplicationRecord
@@ -18,6 +17,7 @@ class WordList < ApplicationRecord
 
   has_many :words, dependent: :destroy
   accepts_nested_attributes_for :words, allow_destroy: true
+  has_and_belongs_to_many :home_work
 
   validate :words_exists
   validates_presence_of :name

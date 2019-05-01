@@ -2,19 +2,20 @@
 #
 # Table name: questionnaires
 #
-#  id           :bigint(8)        not null, primary key
-#  title        :text
-#  description  :text
-#  created_at   :datetime         not null
-#  updated_at   :datetime         not null
-#  options      :jsonb
-#  home_work_id :bigint(8)
+#  id          :bigint(8)        not null, primary key
+#  title       :text
+#  description :text
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#  options     :jsonb
 #
 
 class Questionnaire < ApplicationRecord
 
   has_many :questions, dependent: :destroy
   accepts_nested_attributes_for :questions, allow_destroy: true
+
+  has_and_belongs_to_many :home_work
 
   validates_presence_of :questions
   validates_presence_of :title

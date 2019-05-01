@@ -8,13 +8,13 @@
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
 #  student_group_id :bigint(8)
-#  home_work_id     :bigint(8)
 #
 
 class Student < ApplicationRecord
   belongs_to :user
   belongs_to :student_group, optional: true
   has_one :teacher, through: :student_group
+  has_and_belongs_to_many :home_works
 
   scope :free, -> { where(student_group_id: nil) }
 

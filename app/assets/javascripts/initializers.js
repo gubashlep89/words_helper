@@ -4,17 +4,19 @@ $(document).ready(function () {
     init_answer_checkboxes();
     init_datetimePickers();
     init_home_work_group_select();
+    questionnaire_select();
+    word_list_select();
 });
 
 
 function init_student_select() {
-    $('.select2-student-select').select2({
+    $('.select2-word_list-select').select2({
         width: "100%",
         theme: "bootstrap",
         language: "ru",
         placeholder: "",
         ajax: {
-            url: $(".select2-student-select").data('select2Url'),
+            url: $(".select2-word_list-select").data('select2Url'),
             data: function (params) {
                 var query = {
                     search: params.term || '',
@@ -40,6 +42,67 @@ function init_home_work_group_select() {
                     search: params.term || '',
                     page: params.page || 1,
                     type: 'public'
+                };
+                return query;
+            }
+        }
+    });
+}
+
+function questionnaire_select() {
+    $('.select2-questionnaire-select').select2({
+        width: "100%",
+        theme: "bootstrap",
+        language: "ru",
+        placeholder: "",
+        ajax: {
+            url: $(".select2-questionnaire-select").data('select2Url'),
+            data: function (params) {
+                var query = {
+                    search: params.term || '',
+                    page: params.page || 1,
+                    type: 'public'
+                };
+                return query;
+            }
+        }
+    });
+}
+
+function word_list_select() {
+    $('.select2-questionnaire-select').select2({
+        width: "100%",
+        theme: "bootstrap",
+        language: "ru",
+        placeholder: "",
+        ajax: {
+            url: $(".select2-questionnaire-select").data('select2Url'),
+            data: function (params) {
+                var query = {
+                    search: params.term || '',
+                    page: params.page || 1,
+                    type: 'public'
+                };
+                return query;
+            }
+        }
+    });
+}
+
+function student_group_select() {
+    $('.select2-home-work-student-select').select2({
+        width: "100%",
+        theme: "bootstrap",
+        language: "ru",
+        placeholder: "",
+        ajax: {
+            url: $(".select2-home-work-student-select").data('select2Url'),
+            data: function (params) {
+                var query = {
+                    search: params.term || '',
+                    page: params.page || 1,
+                    type: 'public',
+                    group_id: group_id
                 };
                 return query;
             }

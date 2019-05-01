@@ -30,12 +30,13 @@ ru:
         description: 'Описание'
         students: 'Студенты'
       home_work:
-        group_or_student: 'Задание для группы/студента'
+        group_or_student: 'Задание для всей группы'
         check_point: 'Дата проверки'
         comment: 'Комментарий'
-        group_or_students:
-          for_group: 'Задание для группы'
-          for_student: 'Задание для отдельных студентов'
+        questionnaires: 'Тесты'
+        word_lists: 'Списки слов'
+        student_group: 'Группа студентов'
+        students: 'Студенты'
     errors:
       models:
         student_group:
@@ -71,6 +72,10 @@ ru:
               blank: ' - необходимо заполнить'
             value:
               blank: ' - необходимо заполнить'
+        home_work:
+          attributes:
+            student_group:
+              blank: ' - необходимо указать'
   models:
     words:
       one: "Слово для запоминиания"

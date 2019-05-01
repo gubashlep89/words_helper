@@ -24,6 +24,9 @@ Rails.application.routes.draw do
       post 'exam_result'
       post 'init_questionnaire'
     end
+    collection do
+      get 'questionnaire_select'
+    end
   end
   resources :words
   resources :word_lists do
@@ -32,6 +35,9 @@ Rails.application.routes.draw do
       get 'training'
       get 'testing'
       post 'test_result'
+    end
+    collection do
+      get 'word_list_select'
     end
   end
   root to: 'visitors#index'

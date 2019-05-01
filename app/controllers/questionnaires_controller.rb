@@ -95,6 +95,28 @@ class QuestionnairesController < ApplicationController
     @total = total
   end
 
+  def questionnaire_select
+    search = params[:search]
+    page = params[:page].present? ? params[:page].to_i : 1
+    questionnaires = Questionnaire.all
+    if search.present?
+      questionnaires = questionnaires.where('questionnaires.title ILIKE ?', "%" + search + "%")
+    end
+    questionnaires = questionnaires.limit(11)
+    questionnaires = questionnaires.offset(10*(page - 1))
+    result = {
+        "results": questionnaires[0..9].map {|questionnaire| {id: questionnaire.id, text: questionnaire.title}},
+        "pagination": {
+            "more": (questionnaires.count == 11)
+        }
+    }
+    respond_to do |format|
+      format.json {
+        render json: result
+      }
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_questionnaire
