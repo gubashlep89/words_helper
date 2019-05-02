@@ -10,13 +10,13 @@ $(document).ready(function () {
 
 
 function init_student_select() {
-    $('.select2-word_list-select').select2({
+    $('.select2-student-select').select2({
         width: "100%",
         theme: "bootstrap",
         language: "ru",
         placeholder: "",
         ajax: {
-            url: $(".select2-word_list-select").data('select2Url'),
+            url: $(".select2-student-select").data('select2Url'),
             data: function (params) {
                 var query = {
                     search: params.term || '',
@@ -70,13 +70,13 @@ function questionnaire_select() {
 }
 
 function word_list_select() {
-    $('.select2-questionnaire-select').select2({
+    $('.select2-word-list-select').select2({
         width: "100%",
         theme: "bootstrap",
         language: "ru",
         placeholder: "",
         ajax: {
-            url: $(".select2-questionnaire-select").data('select2Url'),
+            url: $('.select2-word-list-select').data('select2Url'),
             data: function (params) {
                 var query = {
                     search: params.term || '',

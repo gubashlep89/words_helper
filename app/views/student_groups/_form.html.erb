@@ -14,10 +14,16 @@
         'data-select2-url': url
     } %>
     <% unless student_group.new_record? %>
-        <p>Ссылка для приглашения пользователей в данную группу: <%= connect_from_link_url %>?group_id=<%= student_group.id %></p>
+      <div class="form-group row container">
+        <label for="share_link_input">Ссылка для приглашения пользователей в данную группу:</label>
+        <input type="text" class="form-control col-sm-9" id="share_link_input" value="<%= connect_from_link_url %>?group_id=<%= student_group.id %>" readonly>
+        &nbsp;&nbsp;<button type="button" class="btn btn-outline-success col-sm-2" onclick="copyToClipboard('#share_link_input')">Копировать</button>
+        <small id="share_link_input_help" class="form-text text-muted">Пройдя по ссылку пользователь присоединится к
+          вашим студентам.
+        </small>
+      </div>
     <% end %>
   </div>
-
   <div class="form-actions">
     <div class="btn-group" role="group" aria-label="Basic example">
       <%= yield(:form_actions_before) %>
@@ -26,3 +32,26 @@
     </div>
   </div>
 <% end %>
+<script>
+    function copyToClipboard(element) {
+        var $temp = $("<input>");
+        $("body").append($temp);
+        $temp.val($(element).val());
+        if (navigator.userAgent.match(/ipad|ipod|iphone/i)) {
+            var el = $temp.get(0);
+            el.contentEditable = true;
+            el.readOnly = false;
+            var range = document.createRange();
+            range.selectNodeContents(el);
+            var sel = window.getSelection();
+            sel.removeAllRanges();
+            sel.addRange(range);
+            el.setSelectionRange(0, 999999);
+        } else {
+            $temp.select();
+        }
+        document.execCommand("copy");
+        $temp.blur();
+        $temp.remove();
+    }
+</script>
